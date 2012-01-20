@@ -11,7 +11,7 @@ public class QRLanguageLearnerActivity extends Activity implements TextToSpeech.
     private TextToSpeech mTts;
     private static final int MY_DATA_CHECK_CODE = 2109;
     private static final String TAG = "QRLanguageLearner";
-	/** Called when the activity is first created. */
+	
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
