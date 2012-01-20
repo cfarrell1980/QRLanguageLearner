@@ -10,7 +10,9 @@ import android.widget.Toast;
 public class QRLanguageLearnerActivity extends Activity implements TextToSpeech.OnInitListener{
     private TextToSpeech mTts;
     private static final int MY_DATA_CHECK_CODE = 2109;
+    private static final String TAG = "QRLanguageLearner";
 	/** Called when the activity is first created. */
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +55,7 @@ public class QRLanguageLearnerActivity extends Activity implements TextToSpeech.
               } 
     	  }
     	  case IntentIntegrator.REQUEST_CODE: {
-    		// Log looks like W/TestTextActivity.requestCode(11382): 195543262
-    		Log.w("TestTextActivity.requestCode",String.valueOf(requestCode));
+    		
     		if (resultCode != RESULT_CANCELED) {
               IntentResult scanResult = 
                 IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
@@ -65,7 +66,8 @@ public class QRLanguageLearnerActivity extends Activity implements TextToSpeech.
     	       
     	      }
     		  else {
-    			  Toast.makeText(this, "Barcode scan failed!", 3).show();
+    			  Log.w(TAG,"barcode scan failed - possibly because screen was rotated");
+    			  //Toast.makeText(this, "Barcode scan failed!", 3).show();
     		  }
     	    }
     	    break;

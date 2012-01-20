@@ -23,58 +23,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 
-/**
- * <p>A utility class which helps ease integration with Barcode Scanner via {@link Intent}s. This is a simple
- * way to invoke barcode scanning and receive the result, without any need to integrate, modify, or learn the
- * project's source code.</p>
- *
- * <h2>Initiating a barcode scan</h2>
- *
- * <p>Integration is essentially as easy as calling {@link #initiateScan(Activity)} and waiting
- * for the result in your app.</p>
- *
- * <p>It does require that the Barcode Scanner application is installed. The
- * {@link #initiateScan(Activity)} method will prompt the user to download the application, if needed.</p>
- *
- * <p>There are a few steps to using this integration. First, your {@link Activity} must implement
- * the method {@link Activity#onActivityResult(int, int, Intent)} and include a line of code like this:</p>
- *
- * <p>{@code
- * public void onActivityResult(int requestCode, int resultCode, Intent intent) {
- *   IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
- *   if (scanResult != null) {
- *     // handle scan result
- *   }
- *   // else continue with any other code you need in the method
- *   ...
- * }
- * }</p>
- *
- * <p>This is where you will handle a scan result.
- * Second, just call this in response to a user action somewhere to begin the scan process:</p>
- *
- * <p>{@code IntentIntegrator.initiateScan(yourActivity);}</p>
- *
- * <p>You can use {@link #initiateScan(Activity, CharSequence, CharSequence, CharSequence, CharSequence)} or
- * {@link #initiateScan(Activity, int, int, int, int)} to customize the download prompt with
- * different text labels.</p>
- *
- * <p>Note that {@link #initiateScan(Activity)} returns an {@link AlertDialog} which is non-null if the
- * user was prompted to download the application. This lets the calling app potentially manage the dialog.
- * In particular, ideally, the app dismisses the dialog if it's still active in its {@link Activity#onPause()}
- * method.</p>
- *
- * <h2>Sharing text via barcode</h2>
- *
- * <p>To share text, encoded as a QR Code on-screen, similarly, see {@link #shareText(Activity, CharSequence)}.</p>
- *
- * <p>Some code, particularly download integration, was contributed from the Anobiit application.</p>
- *
- * @author Sean Owen
- * @author Fred Lin
- * @author Isaac Potoczny-Jones
- * @author Brad Drehmer
- */
+
 public final class IntentIntegrator {
 
   public static final int REQUEST_CODE = 0x0ba7c0de; // get it?

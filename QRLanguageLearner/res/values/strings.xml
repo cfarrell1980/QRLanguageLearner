@@ -3,5 +3,6 @@
 
     <string name="hello">Hello World, QRLanguageLearnerActivity!</string>
     <string name="app_name">QRLanguageLearner</string>
+    <string name="bcScan">Scan Barcode</string>
 
 </resources>
