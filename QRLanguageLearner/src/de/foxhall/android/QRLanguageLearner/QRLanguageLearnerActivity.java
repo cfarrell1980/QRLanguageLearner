@@ -1,6 +1,9 @@
 package de.foxhall.android.QRLanguageLearner;
+import java.io.IOException;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -61,7 +64,10 @@ public class QRLanguageLearnerActivity extends Activity implements TextToSpeech.
                 IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
     		  if (scanResult != null) {
     	        String upc = scanResult.getContents();    	 
-                SayIt(upc);
+                //SayIt(upc);
+    	        MediaPlayer mPlayer1 = MediaPlayer.create(this, R.raw.one);
+                mPlayer1.start();
+
     	        Toast.makeText(this, upc, 3).show();
     	       
     	      }
