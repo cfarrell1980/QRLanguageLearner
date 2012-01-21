@@ -64,9 +64,26 @@ public class QRLanguageLearnerActivity extends Activity implements TextToSpeech.
                 IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
     		  if (scanResult != null) {
     	        String upc = scanResult.getContents();    	 
-                //SayIt(upc);
-    	        MediaPlayer mPlayer1 = MediaPlayer.create(this, R.raw.one);
-                mPlayer1.start();
+                if (upc.equals("Refridgerator")){
+                	MediaPlayer mPlayer1 = MediaPlayer.create(this, R.raw.fridge);
+                    mPlayer1.start();
+                }
+                else if (upc.equals("television")) {
+                	MediaPlayer mPlayer1 = MediaPlayer.create(this, R.raw.television);
+                    mPlayer1.start();
+                }
+                else if (upc.equals("computer_monitor")){
+                	MediaPlayer mPlayer1 = MediaPlayer.create(this, R.raw.computer_monitor);
+                    mPlayer1.start();
+                }
+                else {
+                	SayIt(upc);
+                }
+                	
+                  
+                	  
+                 
+    	       
 
     	        Toast.makeText(this, upc, 3).show();
     	       
