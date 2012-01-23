@@ -1,5 +1,4 @@
 package de.foxhall.android.QRLanguageLearner;
-import java.io.IOException;
 
 import android.app.Activity;
 import android.content.Intent;
