@@ -11,6 +11,9 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class QRLanguageLearnerActivity extends Activity implements TextToSpeech.OnInitListener{
@@ -68,6 +71,17 @@ public class QRLanguageLearnerActivity extends Activity implements TextToSpeech.
                 IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
     		  if (scanResult != null) {
     	        String upc = scanResult.getContents();
+    	        try{
+    	  		  JSONArray myJArray = new JSONArray(upc);
+    	  		  JSONObject myJItem = myJArray.getJSONObject(0); // TODO: handle more than one list entry
+    	  		  String locale = myJItem.getString("locale");
+    	  		  Toast.makeText(this, String.format("Parsed JSON and found locale %s",locale), 5).show();
+    	  		} catch (JSONException e){
+    	  		  Log.e(TAG,e.toString());	
+    	  		} catch (Exception e){
+    	  		  Log.e(TAG,e.toString());
+    	  		}
+    	  		
     	        try {
     	          AssetFileDescriptor afd = getAssets().openFd(String.format("%s.mp3",upc));
     	          MediaPlayer player = new MediaPlayer();
