@@ -1,13 +1,17 @@
 package de.foxhall.android.QRLanguageLearner;
 
+import java.io.IOException;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
 
 public class QRLanguageLearnerActivity extends Activity implements TextToSpeech.OnInitListener{
     private TextToSpeech mTts;
@@ -19,6 +23,7 @@ public class QRLanguageLearnerActivity extends Activity implements TextToSpeech.
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        Log.w(TAG,String.format("Hallo %s","Ciaran"));
         Intent checkIntent = new Intent();
         checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
         startActivityForResult(checkIntent, MY_DATA_CHECK_CODE);
@@ -62,28 +67,22 @@ public class QRLanguageLearnerActivity extends Activity implements TextToSpeech.
               IntentResult scanResult = 
                 IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
     		  if (scanResult != null) {
-    	        String upc = scanResult.getContents();    	 
-                if (upc.equals("Refridgerator")){
-                	MediaPlayer mPlayer1 = MediaPlayer.create(this, R.raw.fridge);
-                    mPlayer1.start();
-                }
-                else if (upc.equals("television")) {
-                	MediaPlayer mPlayer1 = MediaPlayer.create(this, R.raw.television);
-                    mPlayer1.start();
-                }
-                else if (upc.equals("computer_monitor")){
-                	MediaPlayer mPlayer1 = MediaPlayer.create(this, R.raw.computer_monitor);
-                    mPlayer1.start();
-                }
-                else {
-                	SayIt(upc);
-                }
-                	
+    	        String upc = scanResult.getContents();
+    	        try {
+    	          AssetFileDescriptor afd = getAssets().openFd(String.format("%s.mp3",upc));
+    	          MediaPlayer player = new MediaPlayer();
+    	          player.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
+    	          player.prepare();
+    	          player.start();
+    	          player.reset();
+    	          player.release();
                   
-                	  
-                 
-    	       
-
+    	        } catch (IOException e) {
+    	        	Log.w(TAG,String.format("No asset match for %s",upc));
+    	        	SayIt(upc);
+    	        } catch (Exception e){
+    	        	Log.e(TAG,e.toString());
+    	        }
     	        Toast.makeText(this, upc, 3).show();
     	       
     	      }
